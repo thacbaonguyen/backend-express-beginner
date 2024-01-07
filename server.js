@@ -1,21 +1,20 @@
-//Load HTTP module (thư viện đã có sẵn khi cài đặt node.js)
-const http = require("http");
-const hostname = "127.0.0.1"; //cái này === http://localhost
-const port = 3000;
-//Create HTTP server and listen on port 3000 for requests
-const server = http.createServer((req, res) => {
-  //Set the response HTTP header with HTTP status and Content type
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World\n");
+const express = require("express");
+const path = require("path");
+const app = express();
+require("dotenv").config();
+// console.log("check env: ", process.env.PORT);
+const port = process.env.PORT || 8080;
+app.set("views", path.join(__dirname, "./src/view"));
+app.set("view engine", "ejs");
+const hostName = process.env.HOST_NAME;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
-//listen for request on port 3000, and as a callback function have the port listened on
-logged;
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.get("/abc", (req, res) => {
+  res.render("sample.ejs");
 });
 
-//tự động chạy trên localhost
-// server.listen(port, () => {
-// console.log(`Server running at http://${hostname}:${port}/`);
-// });
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
