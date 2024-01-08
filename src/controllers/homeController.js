@@ -9,7 +9,12 @@ const getHomePage = (req, res) => {
 const getABC = (req, res) => {
   res.render("sample.ejs");
 };
+const postCreateUser = (req, res) => {
+  console.log(req.body);
+  res.send("creat a new user");
+};
 module.exports = {
   getHomePage,
   getABC,
+  postCreateUser,
 };
