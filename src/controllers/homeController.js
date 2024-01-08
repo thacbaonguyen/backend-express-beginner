@@ -9,24 +9,34 @@ const getHomePage = (req, res) => {
 const getABC = (req, res) => {
   res.render("sample.ejs");
 };
-const postCreateUser = (req, res) => {
+const getCreateUsers = (req, res) => {
+  res.render("create.ejs");
+};
+const postCreateUser = async (req, res) => {
   // console.log(req.body);
   let email = req.body.email;
   let name = req.body.myname;
   let city = req.body.city;
-  pool.query(
-    `INSERT INTO Users (email, name, city ) 
-    VALUES (?,?,?)`,
-    [email, name, city],
-    function (err, results) {
-      console.log(results);
-      res.send("Created user success!");
-      console.log(email, name, city);
-    }
+  // pool.query(
+  //   `INSERT INTO Users (email, name, city )
+  //   VALUES (?,?,?)`,
+  //   [email, name, city],
+  //   function (err, results) {
+  //     console.log(results);
+  //     res.send("Created user success!");
+  //     console.log(email, name, city);
+  //   }
+  // );
+  let [results, fields] = await pool.query(
+    `INSERT INTO Users (email, name, city )
+     VALUES (?,?,?)`,
+    [email, name, city]
   );
+  res.send("Created user success!");
 };
 module.exports = {
   getHomePage,
   getABC,
   postCreateUser,
+  getCreateUsers,
 };
