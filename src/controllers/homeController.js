@@ -10,8 +10,20 @@ const getABC = (req, res) => {
   res.render("sample.ejs");
 };
 const postCreateUser = (req, res) => {
-  console.log(req.body);
-  res.send("creat a new user");
+  // console.log(req.body);
+  let email = req.body.email;
+  let name = req.body.myname;
+  let city = req.body.city;
+  pool.query(
+    `INSERT INTO Users (email, name, city ) 
+    VALUES (?,?,?)`,
+    [email, name, city],
+    function (err, results) {
+      console.log(results);
+      res.send("Created user success!");
+      console.log(email, name, city);
+    }
+  );
 };
 module.exports = {
   getHomePage,
