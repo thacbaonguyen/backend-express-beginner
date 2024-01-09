@@ -1,5 +1,9 @@
 const pool = require("../config/database");
-const { getAllUsers } = require("../services/CRUDServices");
+const {
+  getAllUsers,
+  getUserById,
+  updateUserById,
+} = require("../services/CRUDServices");
 const getHomePage = async (req, res) => {
   // pool.query("SELECT * FROM Users u", function (error, results, fields) {
   //   const dataString = JSON.stringify(results);
@@ -18,21 +22,16 @@ const getABC = (req, res) => {
 const getCreateUsers = (req, res) => {
   res.render("create.ejs");
 };
+const getUpdateUsers = async (req, res) => {
+  const userId = req.params.id;
+  let user = await getUserById(userId);
+  res.render("edit.ejs", { userEdit: user });
+};
 const postCreateUser = async (req, res) => {
   // console.log(req.body);
   let email = req.body.email;
   let name = req.body.myname;
   let city = req.body.city;
-  // pool.query(
-  //   `INSERT INTO Users (email, name, city )
-  //   VALUES (?,?,?)`,
-  //   [email, name, city],
-  //   function (err, results) {
-  //     console.log(results);
-  //     res.send("Created user success!");
-  //     console.log(email, name, city);
-  //   }
-  // );
   let [results, fields] = await pool.query(
     `INSERT INTO Users (email, name, city )
      VALUES (?,?,?)`,
@@ -40,9 +39,21 @@ const postCreateUser = async (req, res) => {
   );
   res.send("Created user success!");
 };
+const postUpdateUser = async (req, res) => {
+  // console.log(req.body);
+  let email = req.body.email;
+  let name = req.body.myname;
+  let city = req.body.city;
+  let userId = req.body.userId;
+  await updateUserById(email, name, city, userId);
+  // res.send("Updated user success!");
+  res.redirect("/");
+};
 module.exports = {
   getHomePage,
   getABC,
   postCreateUser,
   getCreateUsers,
+  getUpdateUsers,
+  postUpdateUser,
 };

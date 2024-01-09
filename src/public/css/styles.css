@@ -45,3 +45,6 @@ button {
   margin: 10px;
   cursor: pointer;
 }
+.input-group-d-none {
+  display: none;
+}
