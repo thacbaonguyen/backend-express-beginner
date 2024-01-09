@@ -5,7 +5,7 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
-  <style></style>
+  <style>
     .table-container {
       padding: 20 20;
     }
@@ -39,7 +39,6 @@
     </div>
     <div class="table-container">
       <div class="title">List Users</div>
-
       <table>
         <tr>
           <th>Id</th>
@@ -49,23 +48,6 @@
           <th>Actions</th>
           <!-- Ví dụ về Vòng lặp trong EJS -->
         </tr>
-        <!-- <ul>
-          <% for (let i = 0; i < listUsers.length; i++) { %>
-
-          <tr>
-            <td><%= JSON.stringify(listUsers[i].id)%></td>
-            <td><%= JSON.stringify(listUsers[i].email)%></td>
-            <td><%= JSON.stringify(listUsers[i].name)%></td>
-            <td><%= JSON.stringify(listUsers[i].city)%></td>
-            <td>
-              <button>Edit</button>
-            </td>
-            <td>
-              <button>Delete</button>
-            </td>
-          </tr>
-          <% } %>
-        </ul> -->
         <ul>
           <% listUsers.forEach(function(user) { %>
           <tr>
@@ -77,9 +59,9 @@
               <button>
                 <a href="/update/<%=user.id%>">Edit</a>
               </button>
-            </td>
-            <td>
-              <button>Delete</button>
+              <form action="/delete-user/<%=user.id%>" method="POST">
+                <button>Delete</button>
+              </form>
             </td>
           </tr>
           <% }); %>

@@ -6,7 +6,7 @@ const configViewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
 const pool = require("./config/database");
 // console.log("check env: ", process.env.PORT);
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const hostName = process.env.HOST_NAME;
 //config req.body
 app.use(express.json()); // for json

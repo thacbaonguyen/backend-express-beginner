@@ -3,6 +3,7 @@ const {
   getAllUsers,
   getUserById,
   updateUserById,
+  deleteUserById,
 } = require("../services/CRUDServices");
 const getHomePage = async (req, res) => {
   // pool.query("SELECT * FROM Users u", function (error, results, fields) {
@@ -49,6 +50,16 @@ const postUpdateUser = async (req, res) => {
   // res.send("Updated user success!");
   res.redirect("/");
 };
+const postDeleteUser = async (req, res) => {
+  const userId = req.params.id;
+  let user = await getUserById(userId);
+  res.render("delete.ejs", { userEdit: user });
+};
+const postRemoveUser = async (req, res) => {
+  const id = req.body.userId;
+  await deleteUserById(id);
+  res.redirect("/");
+};
 module.exports = {
   getHomePage,
   getABC,
@@ -56,4 +67,6 @@ module.exports = {
   getCreateUsers,
   getUpdateUsers,
   postUpdateUser,
+  postDeleteUser,
+  postRemoveUser,
 };
