@@ -42,31 +42,42 @@
           <th>Email</th>
           <th>Name</th>
           <th>City</th>
+          <th>Actions</th>
+          <!-- Ví dụ về Vòng lặp trong EJS -->
         </tr>
-        <tr>
-          <td>Peter</td>
-          <td>Griffin</td>
-          <td>$100</td>
-          <td>$100</td>
-        </tr>
-        <tr>
-          <td>Lois</td>
-          <td>Griffin</td>
-          <td>$100</td>
-          <td>$150</td>
-        </tr>
-        <tr>
-          <td>Joe</td>
-          <td>Swanson</td>
-          <td>$100</td>
-          <td>$300</td>
-        </tr>
-        <tr class="tr4">
-          <td>Cleveland</td>
-          <td>Brown</td>
-          <td>$100</td>
-          <td>$250</td>
-        </tr>
+        <!-- <ul>
+          <% for (let i = 0; i < listUsers.length; i++) { %>
+
+          <tr>
+            <td><%= JSON.stringify(listUsers[i].id)%></td>
+            <td><%= JSON.stringify(listUsers[i].email)%></td>
+            <td><%= JSON.stringify(listUsers[i].name)%></td>
+            <td><%= JSON.stringify(listUsers[i].city)%></td>
+            <td>
+              <button>Edit</button>
+            </td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <% } %>
+        </ul> -->
+        <ul>
+          <% listUsers.forEach(function(user) { %>
+          <tr>
+            <td><%= JSON.stringify(user.id)%></td>
+            <td><%= JSON.stringify(user.email)%></td>
+            <td><%= JSON.stringify(user.name)%></td>
+            <td><%= JSON.stringify(user.city)%></td>
+            <td>
+              <button>Edit</button>
+            </td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+          <% }); %>
+        </ul>
       </table>
     </div>
   </body>

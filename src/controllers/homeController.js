@@ -1,11 +1,17 @@
 const pool = require("../config/database");
-const getHomePage = (req, res) => {
+const { getAllUsers } = require("../services/CRUDServices");
+const getHomePage = async (req, res) => {
   // pool.query("SELECT * FROM Users u", function (error, results, fields) {
   //   const dataString = JSON.stringify(results);
   //   res.send(dataString);
   // });
-  res.render("home.ejs");
+  //   let [results, fields] = await pool.query(`select * from Users`);
+  //   return res.render("home.ejs", { listUsers: results });
+  //
+  let results = await getAllUsers();
+  return res.render("home.ejs", { listUsers: results });
 };
+
 const getABC = (req, res) => {
   res.render("sample.ejs");
 };
