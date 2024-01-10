@@ -8,14 +8,7 @@ const {
 const User = require("../models/user");
 
 const getHomePage = async (req, res) => {
-  // pool.query("SELECT * FROM Users u", function (error, results, fields) {
-  //   const dataString = JSON.stringify(results);
-  //   res.send(dataString);
-  // });
-  //   let [results, fields] = await pool.query(`select * from Users`);
-  //   return res.render("home.ejs", { listUsers: results });
-  //
-  let results = [];
+  let results = await User.find({});
   return res.render("home.ejs", { listUsers: results });
 };
 
@@ -45,7 +38,7 @@ const postCreateUser = async (req, res) => {
     name: name,
     city: city,
   });
-  res.send("Created user success!");
+  res.redirect("/");
 };
 const postUpdateUser = async (req, res) => {
   // console.log(req.body);
