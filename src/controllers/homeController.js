@@ -5,6 +5,8 @@ const {
   updateUserById,
   deleteUserById,
 } = require("../services/CRUDServices");
+const User = require("../models/user");
+
 const getHomePage = async (req, res) => {
   // pool.query("SELECT * FROM Users u", function (error, results, fields) {
   //   const dataString = JSON.stringify(results);
@@ -13,7 +15,7 @@ const getHomePage = async (req, res) => {
   //   let [results, fields] = await pool.query(`select * from Users`);
   //   return res.render("home.ejs", { listUsers: results });
   //
-  let results = await getAllUsers();
+  let results = [];
   return res.render("home.ejs", { listUsers: results });
 };
 
@@ -33,11 +35,16 @@ const postCreateUser = async (req, res) => {
   let email = req.body.email;
   let name = req.body.myname;
   let city = req.body.city;
-  let [results, fields] = await pool.query(
-    `INSERT INTO Users (email, name, city )
-     VALUES (?,?,?)`,
-    [email, name, city]
-  );
+  // let [results, fields] = await pool.query(
+  //   `INSERT INTO Users (email, name, city )
+  //    VALUES (?,?,?)`,
+  //   [email, name, city]
+  // );
+  await User.create({
+    email: email,
+    name: name,
+    city: city,
+  });
   res.send("Created user success!");
 };
 const postUpdateUser = async (req, res) => {

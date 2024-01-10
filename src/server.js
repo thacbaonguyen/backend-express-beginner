@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 const configViewEngine = require("./config/viewEngine");
@@ -18,12 +17,6 @@ app.use("/", webRoutes);
 
 // config static files
 configViewEngine(app);
-const kittySchema = new mongoose.Schema({
-  name: String,
-});
-const Kitten = mongoose.model("Kitten", kittySchema);
-const cat = new Kitten({ name: "hoidanit cat" });
-cat.save();
 (async () => {
   try {
     await connection();
