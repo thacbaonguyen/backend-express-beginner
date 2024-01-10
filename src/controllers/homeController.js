@@ -20,7 +20,8 @@ const getCreateUsers = (req, res) => {
 };
 const getUpdateUsers = async (req, res) => {
   const userId = req.params.id;
-  let user = await getUserById(userId);
+  // let user = await getUserById(userId);
+  let user = await User.findById(userId);
   res.render("edit.ejs", { userEdit: user });
 };
 const postCreateUser = async (req, res) => {
@@ -46,18 +47,24 @@ const postUpdateUser = async (req, res) => {
   let name = req.body.myname;
   let city = req.body.city;
   let userId = req.body.userId;
-  await updateUserById(email, name, city, userId);
+  // await updateUserById(email, name, city, userId);
+  await User.updateOne(
+    { _id: userId },
+    { $set: { email: email, name: name, city: city } }
+  );
   // res.send("Updated user success!");
   res.redirect("/");
 };
 const postDeleteUser = async (req, res) => {
   const userId = req.params.id;
-  let user = await getUserById(userId);
+  // let user = await getUserById(userId);
+  const user = await User.findOne({ _id: userId });
   res.render("delete.ejs", { userEdit: user });
 };
 const postRemoveUser = async (req, res) => {
   const id = req.body.userId;
-  await deleteUserById(id);
+  // await deleteUserById(id);
+  await User.deleteOne({ _id: id });
   res.redirect("/");
 };
 module.exports = {
